@@ -1,7 +1,9 @@
 package com.kodilla.ecommercee.controller;
 
 
+import com.kodilla.ecommercee.domain.CustomerDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,9 +13,9 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class CustomerController {
 
-    @PostMapping
-    public ResponseEntity<String> createCustomer(@RequestBody String customerDto) {
-        return ResponseEntity.ok("Customer created successfully!");
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> createCustomer(@RequestBody CustomerDto customerDto) {
+        return ResponseEntity.ok("Customer " + customerDto.getLogin() + " created successfully!");
     }
 
     @PutMapping(value = "{customerId}/block")
