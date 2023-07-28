@@ -1,12 +1,12 @@
-package com.kodilla.ecommercee;
+package com.kodilla.ecommercee.domain;
 
-public class Product {
+public class ProductDto {
     private Long id;
     private Long groupId;
     private String name;
     private String description;
 
-    public Product(Long id, Long groupId, String name, String description) {
+    public ProductDto(Long id, Long groupId, String name, String description) {
         this.id = id;
         this.groupId = groupId;
         this.name = name;

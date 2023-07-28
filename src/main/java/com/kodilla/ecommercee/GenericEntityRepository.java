@@ -8,13 +8,4 @@ import java.util.Optional;
 
 @Repository
 public interface GenericEntityRepository extends JpaRepository<GenericEntity, Long> {
-    @Override
-    List<GenericEntity> findAll();
-
-    @Override
-    GenericEntity save (GenericEntity genericEntity);
-
-    @Override
-    Optional<GenericEntity> findById(Long id);
-
 }
