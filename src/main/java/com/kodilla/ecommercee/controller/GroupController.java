@@ -23,17 +23,17 @@ public class GroupController {
     }
 
     @GetMapping(value = "{groupId}")
-    public ResponseEntity<GroupDto> getGroup() {
+    public ResponseEntity<GroupDto> getGroup(@PathVariable String groupId) {
         return ResponseEntity.ok(new GroupDto(2L, "retrieved group"));
     }
 
-    @PutMapping
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GroupDto> createGroup(@RequestBody GroupDto groupDto){
         GroupDto group = new GroupDto(1L, "new group");
         return ResponseEntity.ok(group);
     }
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping
     public ResponseEntity<String> updateGroup(@RequestBody GroupDto groupDto){
         return ResponseEntity.ok("Group has been updated successfully.");
     }
