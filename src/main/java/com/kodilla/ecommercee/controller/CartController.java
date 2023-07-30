@@ -2,7 +2,6 @@ package com.kodilla.ecommercee.controller;
 
 import com.kodilla.ecommercee.domain.CartDto;
 import com.kodilla.ecommercee.domain.ProductDto;
-import com.kodilla.ecommercee.service.DbService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -14,16 +13,14 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class CartController {
 
-    private final DbService dbService;
-
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> createCart(@RequestBody CartDto cartDto) {
         return ResponseEntity.ok("Cart ID " + cartDto.getId() + " created successfully!");
     }
 
     @GetMapping(value = "{cartId}/products")
-    public ResponseEntity<Long> getProductsInCart(@PathVariable Long cartId) {
-        return ResponseEntity.ok(dbService.getProducts(cartId));
+    public ResponseEntity<String> getProductsInCart(@PathVariable Long cartId) {
+        return ResponseEntity.ok("Products of cart ID " + cartId + " : chair, bed, curtain");
     }
 
     @PutMapping(value = "{cartId}", consumes = MediaType.APPLICATION_JSON_VALUE)
