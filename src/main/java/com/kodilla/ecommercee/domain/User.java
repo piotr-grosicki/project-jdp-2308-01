@@ -16,13 +16,19 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
+    private Long customerId;
 
     @Column(nullable = false)
-    private String username;
+    private String login;
 
     @Column(nullable = false)
     private String email;
+
+    @Column(nullable = false)
+    private boolean isLocked;
+
+    @Column(nullable = false)
+    private String customerKey;
 
 }
 
