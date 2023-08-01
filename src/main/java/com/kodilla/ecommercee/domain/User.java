@@ -11,7 +11,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "users")
+@Table(name = "USERS")
 public class User {
 
     @Id
@@ -23,6 +23,8 @@ public class User {
 
     @Column(nullable = false)
     private String email;
+
+}
 
 
 
