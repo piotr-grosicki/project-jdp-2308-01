@@ -23,7 +23,6 @@ public class Cart {
 
 
     //private Customer customer;
-    //private Product product;
     //private Order order;
     //private List<Product> items;
 
