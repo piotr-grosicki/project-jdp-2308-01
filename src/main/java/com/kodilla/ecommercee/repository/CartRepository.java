@@ -9,4 +9,5 @@ import javax.transaction.Transactional;
 @Transactional
 @Repository
 public interface CartRepository extends JpaRepository <Cart, Long> {
+
 }
