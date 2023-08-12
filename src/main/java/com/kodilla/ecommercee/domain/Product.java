@@ -1,4 +1,4 @@
-package com.kodilla.ecommercee;
+package com.kodilla.ecommercee.domain;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -14,7 +14,7 @@ public class Product {
     /*Jeszcze nie jest utworzona
     @ManyToOne
     @JoinColumn(name = "group_id")
-    private Group groupId;*/
+    private Group group;*/
 
     @Column(name = "name")
     private String name;
