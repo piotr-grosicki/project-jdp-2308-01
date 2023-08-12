@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/v1/tasks")
+@RequestMapping("/v1/products")
 @RequiredArgsConstructor
 public class ProductController {
 
@@ -25,19 +25,19 @@ public class ProductController {
             return ResponseEntity.ok("Product " + productId);
     }
 
-    @DeleteMapping(value = "productId")
+    @DeleteMapping(value = "{productId}")
     public ResponseEntity<Void> deleteProduct(@PathVariable Long productId) {
         System.out.println("Product with ID " + productId + " has been deleted");
-        return (ResponseEntity<Void>) ResponseEntity.noContent();
+        return ResponseEntity.noContent().build();
     }
 
     @PutMapping
-    public ResponseEntity<String> updateProduct(@RequestBody Long productId) {
-        return ResponseEntity.ok("Product with ID " + productId + " has been updated");
+    public ResponseEntity<String> updateProduct(@RequestBody ProductDto productDto) {
+        return ResponseEntity.ok("Product " + productDto.getName() + " has been updated");
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> createProduct(@RequestBody ProductDto productId) {
-        return ResponseEntity.ok("Procudt " + productId.getName() + " created succesfully!");
+    public ResponseEntity<String> createProduct(@RequestBody ProductDto productDto) {
+        return ResponseEntity.ok("Procudt " + productDto.getName() + " created succesfully!");
     }
 }
