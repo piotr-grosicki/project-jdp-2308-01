@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,12 +22,20 @@ public class Group {
     @Column(name = "NAME")
     private String name;
 
-//    @OneToMany(
-//            targetEntity = Product.class,
-//            mappedBy = "group",
-//            cascade = CascadeType.ALL,
-//            fetch = FetchType.LAZY
-//    )
-//     private List<Product> products = new ArrayList<>();
+    @OneToMany(
+            targetEntity = Product.class,
+            mappedBy = "group",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY
+    )
+     private List<Product> products = new ArrayList<>();
 
+    public Group(String name) {
+        this.name = name;
+    }
+
+    public Group(String name, List<Product> products) {
+        this.name = name;
+        this.products = products;
+    }
 }
