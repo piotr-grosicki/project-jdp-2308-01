@@ -1,8 +1,17 @@
 package com.kodilla.ecommercee.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 @Entity
 @Table(name = "Product")
 public class Product {
@@ -11,10 +20,10 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    /*Jeszcze nie jest utworzona
+
     @ManyToOne
     @JoinColumn(name = "group_id")
-    private Group group;*/
+    private Group group;
 
     @Column(name = "name")
     private String name;
@@ -28,38 +37,4 @@ public class Product {
         this.description = description;
     }*/
 
-    public Product() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    /*public Long getGroupId() {
-        return groupId;
-    }*/
-
-    public String getName() {
-        return name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    /*public void setGroup(Group group) {
-        this.group = group;
-    }*/
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 }

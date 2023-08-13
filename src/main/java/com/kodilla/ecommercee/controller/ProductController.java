@@ -1,6 +1,10 @@
 package com.kodilla.ecommercee.controller;
 
+import com.kodilla.ecommercee.domain.Product;
 import com.kodilla.ecommercee.domain.ProductDto;
+import com.kodilla.ecommercee.mapper.ProductMapper;
+import com.kodilla.ecommercee.repository.ProductRepository;
+import com.kodilla.ecommercee.service.DbService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -14,30 +18,39 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductController {
 
+    private final DbService dbService;
+    private final ProductMapper productMapper;
+    private final ProductRepository productRepository;
+
     @GetMapping
     public ResponseEntity<List<ProductDto>> getProducts() {
-        List<ProductDto> products = new ArrayList<>();
-        return ResponseEntity.ok(products);
+        List<Product> products = dbService.getAllProducts();
+        return ResponseEntity.ok(productMapper.mapToProductDtoList(products));
     }
 
     @GetMapping(value = "{productId}")
-    public ResponseEntity<String> getProduct(@PathVariable Long productId) {
-            return ResponseEntity.ok("Product " + productId);
+    public ResponseEntity<ProductDto> getProduct(@PathVariable Long productId) {
+        Product product = productRepository.findById(productId).get();
+        return ResponseEntity.ok(productMapper.mapToProductDto(product));
     }
 
     @DeleteMapping(value = "{productId}")
-    public ResponseEntity<Void> deleteProduct(@PathVariable Long productId) {
-        System.out.println("Product with ID " + productId + " has been deleted");
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<String> deleteProduct(@PathVariable Long productId) {
+        dbService.deleteProduct(productId);
+        return ResponseEntity.ok("Product ID " + productId + " has been deleted.");
     }
 
     @PutMapping
-    public ResponseEntity<String> updateProduct(@RequestBody ProductDto productDto) {
-        return ResponseEntity.ok("Product " + productDto.getName() + " has been updated");
+    public ResponseEntity<ProductDto> updateProduct(@RequestBody ProductDto productDto) {
+        Product product = productMapper.mapToProduct(productDto);
+        Product savedProduct = dbService.saveProduct(product);
+        return ResponseEntity.ok(productMapper.mapToProductDto(savedProduct));
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> createProduct(@RequestBody ProductDto productDto) {
-        return ResponseEntity.ok("Procudt " + productDto.getName() + " created succesfully!");
+    public ResponseEntity<Void> createProduct(@RequestBody ProductDto productDto) {
+        Product product = productMapper.mapToProduct(productDto);
+        dbService.saveProduct(product);
+        return ResponseEntity.ok().build();
     }
 }
