@@ -1,15 +1,19 @@
 package com.kodilla.ecommercee.domain;
 
 import com.kodilla.ecommercee.repository.CartRepository;
+import com.kodilla.ecommercee.repository.CustomerRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.transaction.Transactional;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+@Transactional
 @SpringBootTest
 public class CartRepositoryTest {
 
@@ -17,23 +21,27 @@ public class CartRepositoryTest {
     @Autowired
     private CartRepository cartRepository;
 
+    @Autowired
+    private CustomerRepository customerRepository;
 
-    //Test for CRUD
+    private Customer createTestCustomer() {
+        return new Customer(null, "login", "email", false, "key1");
+    }
+
+
+//Test for CRUD
+
     @Test
     void shouldCreateCart() {
         //Given
-        Cart cart = new Cart(1L, 2L);
+        Cart cart = new Cart(null, createTestCustomer());
 
         //When
         Cart testCart = cartRepository.save(cart);
 
         //Then
-        Assertions.assertEquals(1L, testCart.getId());
-        Assertions.assertEquals(2L, testCart.getCustomerId());
-
-
-        //CleanUp
-        cartRepository.deleteById(testCart.getId());
+        assertNotNull(testCart.getId());
+        assertEquals("login", testCart.getCustomer().getLogin());
 
     }
 
@@ -42,7 +50,8 @@ public class CartRepositoryTest {
     void shouldFindCartById() {
 
         //Given
-        Cart cart1 = new Cart(1L, 55L);
+        Customer testCustomer = createTestCustomer();
+        Cart cart1 = new Cart(null, testCustomer);
         cartRepository.save(cart1);
 
         //When
@@ -50,46 +59,51 @@ public class CartRepositoryTest {
 
         //Then
         Assertions.assertTrue(testCart.isPresent());
+        Assertions.assertEquals("login", testCart.get().getCustomer().getLogin());
 
 
-        //CleanUp
-        cartRepository.deleteById(testCart.get().getId());
     }
 
     @Test
     void shouldUpdateCart() {
         //Given
-        Cart cart2 = new Cart(7L, 55L);
+        Customer testCustomer = createTestCustomer();
+        Cart cart2 = new Cart(null, testCustomer);
         cartRepository.save(cart2);
 
 
         //When
         Assertions.assertNotNull(cart2);
-//@Setter do Cart
-        // cart2.setCustomerId(22L);
-        cartRepository.flush();
+        boolean newLock = true;
+        String newLogin = "updated login";
+        testCustomer.setLocked(newLock);
+        testCustomer.setLogin(newLogin);
+        cartRepository.save(cart2);
 
         //Then
-        //   Assertions.assertEquals(22L, cart2.getCustomerId());
-
+        Optional<Cart> updatedCart = cartRepository.findById(cart2.getId());
+        Assertions.assertTrue(updatedCart.isPresent());
+        Assertions.assertEquals(newLock, updatedCart.get().getCustomer().isLocked());
+        Assertions.assertEquals(newLogin, updatedCart.get().getCustomer().getLogin());
 
         //CleanUp
-     //   cartRepository.deleteById(cart2.getId());
+        cartRepository.deleteById(cart2.getId());
 
     }
 
     @Test
     void shouldDeleteCart() {
         //Given
-        Cart cart3 = new Cart(8L, 55L);
+        Cart cart3 = new Cart(null, createTestCustomer());
 
-        //When-Then
+        //When
         Cart testCart = cartRepository.save(cart3);
-        Assertions.assertEquals(55L, cart3.getCustomerId());
+        assertNotNull(testCart.getId());
         cartRepository.deleteById(testCart.getId());
 
-
-        //CleanUp
+        //Then
+        Optional<Cart> expected = cartRepository.findById(testCart.getId());
+        Assertions.assertFalse(expected.isPresent());
 
 
     }
@@ -103,7 +117,7 @@ public class CartRepositoryTest {
       /*
         //Given
         CustomerRepository customerRepository;
-        Cart cart4 = new Cart(2L, 4L);
+        Cart cart4 = new Cart(null, createTestCustomer());
 
         List<Cart> carts = new ArrayList<>();
         carts.add(cart4);
@@ -134,7 +148,7 @@ public class CartRepositoryTest {
         OrderRepository orderRepository;
         Order order1 = new Order(1L, 3L, 5L);
 
-        Cart cart5 = new Cart(2L, 5L);
+        Cart cart5 = new Cart(null, createTestCustomer());
 
 
         orderRepository.save(cart5);
@@ -168,8 +182,8 @@ public class CartRepositoryTest {
         productRepository.save(product2);
         productRepository.save(product2);
 
-        Cart cart6 = new Cart(3L, 8L);
-        Cart cart7 = new Cart(5L, 8L);
+        Cart cart6 = new Cart(null, createTestCustomer());
+        Cart cart7 = new Cart(null, createTestCustomer());
         List<Product> itemsOfCart5 = new ArrayList<>();
         List<Product> itemsOfCart6 = new ArrayList<>();
         itemsOfCart5.add(product1);
