@@ -31,6 +31,14 @@ public class Customer {
 
 //  @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //  private List<Order> orders;
+
+
+    public Customer(String login, String email, boolean isLocked, String customerKey) {
+        this.login = login;
+        this.email = email;
+        this.isLocked = isLocked;
+        this.customerKey = customerKey;
+    }
 }
 
 
