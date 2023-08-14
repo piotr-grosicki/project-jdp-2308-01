@@ -32,6 +32,9 @@ public class Customer {
     @Column(nullable = false)
     private String customerKey;
 
+    @OneToOne(mappedBy = "customer")
+    private Cart cart;
+
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Order> orders = new ArrayList<>();
 
