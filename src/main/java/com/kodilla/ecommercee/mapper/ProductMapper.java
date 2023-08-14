@@ -2,6 +2,8 @@ package com.kodilla.ecommercee.mapper;
 
 import com.kodilla.ecommercee.domain.Product;
 import com.kodilla.ecommercee.domain.ProductDto;
+import com.kodilla.ecommercee.repository.GroupRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,7 +12,7 @@ import java.util.stream.Collectors;
 @Service
 public class ProductMapper {
 
-    private final GroupRepository groupRepository;
+    private GroupRepository groupRepository;
 
     public Product mapToProduct(final ProductDto productDto) {
         return new Product(
