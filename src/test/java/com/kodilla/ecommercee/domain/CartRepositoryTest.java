@@ -25,7 +25,7 @@ public class CartRepositoryTest {
     private CustomerRepository customerRepository;
 
     private Customer createTestCustomer() {
-        return new Customer(null, "login", "email", false, "key1");
+        return new Customer("login", "email", false, "key1");
     }
 
 
