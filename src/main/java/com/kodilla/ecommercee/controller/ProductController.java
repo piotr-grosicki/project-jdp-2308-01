@@ -10,8 +10,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/v1/products")
@@ -29,15 +29,15 @@ public class ProductController {
     }
 
     @GetMapping(value = "{productId}")
-    public ResponseEntity<ProductDto> getProduct(@PathVariable Long productId) {
+    public ResponseEntity<ProductDto> getProduct(@PathVariable Long productId) throws NoSuchElementException {
         Product product = productRepository.findById(productId).get();
         return ResponseEntity.ok(productMapper.mapToProductDto(product));
     }
 
     @DeleteMapping(value = "{productId}")
-    public ResponseEntity<String> deleteProduct(@PathVariable Long productId) {
+    public ResponseEntity<Void> deleteProduct(@PathVariable Long productId) {
         dbService.deleteProduct(productId);
-        return ResponseEntity.ok("Product ID " + productId + " has been deleted.");
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping
