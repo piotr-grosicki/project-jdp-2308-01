@@ -70,10 +70,11 @@ public class GroupRepositoryTest {
         groupRepository.save(group1);
         group1.setName("Fabrics");
         groupRepository.save(group1);
+        long id1 = group1.getId();
 
         //Then
-        assertTrue(groupRepository.findById(1L).isPresent());
-        assertEquals("Fabrics", groupRepository.findById(1L).get().getName());
+        assertTrue(groupRepository.findById(id1).isPresent());
+        assertEquals("Fabrics", groupRepository.findById(id1).get().getName());
 
     }
 
