@@ -20,8 +20,6 @@ public class Order {
     @Column(name = "carts_id")
     private Long cartId;
 
-    //relationship to Cart can't be settled without Cart class created
-/*
     @OneToOne
     @JoinColumn(name = "cart_id")
     private Cart cart;
@@ -29,13 +27,11 @@ public class Order {
     public Cart getCart(){
         return cart;
     }
-*/
 
     @Column(name = "customers_id")
     private Long customerID;
 
-    //relationship to Customers can't be settled without Cart class created
-   /*
+
     @ManyToOne
     @JoinColumn(name = "customers_id")
     private Customer customer;
@@ -43,7 +39,6 @@ public class Order {
     public Customer getCustomer() {
         return customer;
     }
-    */
 
     // private List<Product> items;
 }
