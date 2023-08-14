@@ -3,6 +3,7 @@ package com.kodilla.ecommercee.domain;
 
 import com.kodilla.ecommercee.repository.GroupRepository;
 import com.kodilla.ecommercee.repository.ProductRepository;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 @Transactional
 @SpringBootTest
@@ -35,7 +36,7 @@ public class GroupRepositoryTest {
         //Then
         long id = group.getId();
         Optional<Group> optionalGroup = groupRepository.findById(id);
-        assertEquals(true, optionalGroup.isPresent());
+        assertTrue(optionalGroup.isPresent());
 
     }
 
@@ -90,7 +91,7 @@ public class GroupRepositoryTest {
         long id = group1.getId();
 
         //Then
-        assertEquals(2, groupRepository.findById(id).get().getProducts().size());
+        Assertions.assertEquals(2, groupRepository.findById(id).get().getProducts().size());
 
     }
 }
