@@ -18,7 +18,7 @@ public class CustomerRepositoryTest {
     @Test
     void shouldCreateCustomer() {
         //Given
-        Cart cart1 = new Cart(7L);
+        Cart cart1 = new Cart(7L, null);
         List<Cart> carts1 = new ArrayList<>();
         carts1.add(cart1);
 //        Customer customer = new Customer(null, "testUser55",
@@ -45,7 +45,7 @@ public class CustomerRepositoryTest {
     void shouldFindCustomerById() {
 
         //Given
-        Cart cart1 = new Cart(7L);
+        Cart cart1 = new Cart(7L, null);
         List<Cart> carts2 = new ArrayList<>();
         carts2.add(cart1);
 //        Customer customer = new Customer(null, "testUser55", "" ,
@@ -65,8 +65,8 @@ public class CustomerRepositoryTest {
     @Test
     void shouldUpdateCustomer() {
         //Given
-        Cart cart1 = new Cart(7L);
-        Cart cart2 = new Cart(2L);
+        Cart cart1 = new Cart(7L,null);
+        Cart cart2 = new Cart(2L,null);
         List<Cart> carts3 = new ArrayList<>();
         carts3.add(cart1);
         carts3.add(cart2);
@@ -96,7 +96,7 @@ public class CustomerRepositoryTest {
     @Test
     void shouldDeleteCustomer() {
         //Given
-        Cart cart1 = new Cart(7L);
+        Cart cart1 = new Cart(7L,null);
         List<Cart> carts4 = new ArrayList<>();
         carts4.add(cart1);
       //  Customer customer = new Customer(null, "testUser55", false, "KeyForTestUser55", carts4);
