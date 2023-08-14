@@ -3,15 +3,17 @@ package com.kodilla.ecommercee.domain;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "ORDERS")
 public class Order {
-
 
     @Id
     @GeneratedValue
@@ -20,16 +22,9 @@ public class Order {
     @Column(name = "carts_id")
     private Long cartId;
 
-    //relationship to Cart can't be settled without Cart class created
-/*
     @OneToOne
     @JoinColumn(name = "cart_id")
     private Cart cart;
-
-    public Cart getCart(){
-        return cart;
-    }
-*/
 
     @Column(name = "customers_id")
     private Long customerID;
@@ -45,5 +40,5 @@ public class Order {
     }
     */
 
-    // private List<Product> items;
+//    private List<Product> items;
 }
