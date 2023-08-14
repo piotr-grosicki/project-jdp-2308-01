@@ -15,7 +15,6 @@ import java.util.List;
 @Entity(name = "ORDERS")
 public class Order {
 
-
     @Id
     @GeneratedValue
     private Long id;
@@ -41,5 +40,5 @@ public class Order {
     }
     */
 
-    private List<Product> items;
+//    private List<Product> items;
 }
