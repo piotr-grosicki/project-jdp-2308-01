@@ -56,6 +56,8 @@ public class GroupRepositoryTest {
         groupList.add(groupRepository.findById(id2).get());
 
         //Then
+        assertTrue(groupRepository.findById(id1).isPresent());
+        assertTrue(groupRepository.findById(id2).isPresent());
         assertEquals(2, groupList.size());
     }
 
@@ -70,6 +72,7 @@ public class GroupRepositoryTest {
         groupRepository.save(group1);
 
         //Then
+        assertTrue(groupRepository.findById(1L).isPresent());
         assertEquals("Fabrics", groupRepository.findById(1L).get().getName());
 
     }
@@ -91,7 +94,8 @@ public class GroupRepositoryTest {
         long id = group1.getId();
 
         //Then
-        Assertions.assertEquals(2, groupRepository.findById(id).get().getProducts().size());
+        assertTrue(groupRepository.findById(id).isPresent());
+        assertEquals(2, groupRepository.findById(id).get().getProducts().size());
 
     }
 }
