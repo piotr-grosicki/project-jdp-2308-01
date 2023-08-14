@@ -22,39 +22,45 @@ public class OrderRepositoryTest {
     private OrderRepository orderRepository;
 
     @Test
-    void getGroup() {
+    void getOrderById() {
         //Given
         Cart cart = new Cart();
         Customer customer = new Customer("JavaMan", "jm@gmail.com", false, "efrsdvb546ujtngf");
-        Order order = new Order();
+        Order order = new Order(cart, customer);
 
         //When
-        orderRepository.save(group);
+        orderRepository.save(order);
 
         //Then
-        long id = group.getId();
-        Optional<Group> optionalGroup = groupRepository.findById(id);
-        assertTrue(optionalGroup.isPresent());
+        long id = order.getId();
+        Optional<Order> optionalOrder = orderRepository.findById(id);
+        assertTrue(optionalOrder.isPresent());
 
     }
 
     @Test
-    void getGroups() {
+    void getOrders() {
         //Given
-        Group group1 = new Group("Beverages");
-        Group group2 = new Group("Snacks");
+        Cart cart1 = new Cart();
+        Cart cart2 = new Cart();
+        Customer customer1 = new Customer("JavaMan", "jm@gmail.com", false, "efrsdvb546ujtngf");
+        Customer customer2 = new Customer("ManMan", "awfweg@gmail.com", false, "hnkuunyerbtesr");
+        Order order1 = new Order(cart1, customer1);
+        Order order2 = new Order(cart2, customer2);
 
         //When
-        groupRepository.save(group1);
-        groupRepository.save(group2);
-        long id1 = group1.getId();
-        long id2 = group2.getId();
-        List<Group> groupList = new ArrayList<>();
-        groupList.add(groupRepository.findById(id1).get());
-        groupList.add(groupRepository.findById(id2).get());
+        orderRepository.save(order1);
+        orderRepository.save(order2);
+        long id1 = order1.getId();
+        long id2 = order2.getId();
+        List<Order> orderList = new ArrayList<>();
+        orderList.add(orderRepository.findById(id1).get());
+        orderList.add(orderRepository.findById(id2).get());
 
         //Then
-        assertEquals(2, groupList.size());
+        assertEquals(2, orderList.size());
+        assertTrue(orderRepository.findById(id1).isPresent());
+        assertTrue(orderRepository.findById(id2).isPresent());
     }
 
 }

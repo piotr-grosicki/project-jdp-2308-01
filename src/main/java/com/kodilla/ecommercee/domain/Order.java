@@ -19,24 +19,18 @@ public class Order {
     @GeneratedValue
     private Long id;
 
-//    @Column(name = "carts_id")
-
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "carts_id")
     private Cart cart;
-
-    @Column(name = "customers_id")
-    private Long customerID;
-
 
     @ManyToOne
     @JoinColumn(name = "customers_id")
     private Customer customer;
 
-    public Customer getCustomer() {
-        return customer;
-    }
-
 //    private List<Product> items;
 
+    public Order(Cart cart, Customer customer) {
+        this.cart = cart;
+        this.customer = customer;
+    }
 }
