@@ -1,5 +1,6 @@
 package com.kodilla.ecommercee.service;
 
+import com.kodilla.ecommercee.domain.Order;
 import com.kodilla.ecommercee.domain.Group;
 import com.kodilla.ecommercee.domain.Product;
 import com.kodilla.ecommercee.repository.*;
@@ -34,6 +35,22 @@ public class DbService {
         productRepository.deleteById(id);
     }
 
+    public List<Order> getAllOrders() {
+        return orderRepository.findAll();
+    }
+
+    public Order getOrderById(long id) throws NoSuchElementException {
+        return orderRepository.findById(id).get();
+    }
+
+    public Order saveOrder(final Order order) {
+        return orderRepository.save(order);
+    }
+
+    public void deleteOrder(long id) {
+        orderRepository.deleteById(id);
+    }
+
     public Group getGroup(long id) throws NoSuchElementException {
         return groupRepository.findById(id).get();
     }
@@ -44,6 +61,6 @@ public class DbService {
 
     public Group saveGroup(final Group group) {
         return groupRepository.save(group);
-    }
 
+    }
 }
