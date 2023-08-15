@@ -14,7 +14,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/v1/groups")
 @RequiredArgsConstructor
-@CrossOrigin("*")
 public class GroupController {
 
     private final DbService dbService;
