@@ -9,4 +9,5 @@ import javax.transaction.Transactional;
 @Transactional
 @Repository
 public interface GroupRepository extends JpaRepository<Group, Long> {
+
 }
