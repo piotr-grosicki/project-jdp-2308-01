@@ -146,9 +146,9 @@ public class ProductRepositoryTest {
     @Test
     void testManyToManyWithCart(){
         //Given
-        Cart cart1 = new Cart(null, new Customer(null, "login1", "email1", false, "key1"));
-        Cart cart2 = new Cart(null, new Customer(null, "login2", "email2", false, "key2"));
-        Cart cart3 = new Cart(null, new Customer(null, "login3", "email3", false, "key3"));
+        Cart cart1 = new Cart(null, new Customer("login1", "email1", false, "key1"));
+        Cart cart2 = new Cart(null, new Customer("login2", "email2", false, "key2"));
+        Cart cart3 = new Cart(null, new Customer("login3", "email3", false, "key3"));
 
         List<Cart> list1 = new ArrayList<>();
         List<Cart> list2 = new ArrayList<>();
