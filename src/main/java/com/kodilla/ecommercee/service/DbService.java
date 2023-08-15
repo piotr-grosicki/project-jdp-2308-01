@@ -1,11 +1,9 @@
 package com.kodilla.ecommercee.service;
 
 import com.kodilla.ecommercee.domain.Order;
+import com.kodilla.ecommercee.domain.Group;
 import com.kodilla.ecommercee.domain.Product;
-import com.kodilla.ecommercee.repository.CartRepository;
-import com.kodilla.ecommercee.repository.CustomerRepository;
-import com.kodilla.ecommercee.repository.OrderRepository;
-import com.kodilla.ecommercee.repository.ProductRepository;
+import com.kodilla.ecommercee.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +16,7 @@ public class DbService {
 
     private final CartRepository cartRepository;
     private final CustomerRepository customerRepository;
+    private final GroupRepository groupRepository;
     private final OrderRepository orderRepository;
     private final ProductRepository productRepository;
 
@@ -25,6 +24,9 @@ public class DbService {
         return productRepository.save(product);
     }
 
+    public Product getProduct(long id) throws NoSuchElementException{
+        return productRepository.findById(id).get();
+    }
     public List<Product> getAllProducts() {
         return productRepository.findAll();
     }
@@ -47,6 +49,18 @@ public class DbService {
 
     public void deleteOrder(long id) {
         orderRepository.deleteById(id);
+
+    public Group getGroup(long id) throws NoSuchElementException {
+        return groupRepository.findById(id).get();
+    }
+
+    public List<Group> getAllGroups() {
+        return groupRepository.findAll();
+    }
+
+    public Group saveGroup(final Group group) {
+        return groupRepository.save(group);
+
     }
 
 }
