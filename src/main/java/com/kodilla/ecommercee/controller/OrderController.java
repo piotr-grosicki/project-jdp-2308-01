@@ -45,8 +45,8 @@ public class OrderController {
     @PutMapping
     public ResponseEntity<OrderDto> updateOrder(@RequestBody OrderDto orderDto) {
         Order order = orderMapper.mapToOrder(orderDto);
-        dbService.saveOrder(order);
-        return ResponseEntity.ok().build();
+        Order savedOrder = dbService.saveOrder(order);
+        return ResponseEntity.ok(orderMapper.mapToOrderDto(savedOrder));
     }
 
     @DeleteMapping(value = "{orderId}")
