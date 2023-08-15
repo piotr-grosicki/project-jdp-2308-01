@@ -20,7 +20,6 @@ public class ProductController {
 
     private final DbService dbService;
     private final ProductMapper productMapper;
-    private final ProductRepository productRepository;
 
     @GetMapping
     public ResponseEntity<List<ProductDto>> getProducts() {
@@ -30,7 +29,7 @@ public class ProductController {
 
     @GetMapping(value = "{productId}")
     public ResponseEntity<ProductDto> getProduct(@PathVariable Long productId) throws NoSuchElementException {
-        Product product = productRepository.findById(productId).get();
+        Product product = dbService.getProduct(productId);
         return ResponseEntity.ok(productMapper.mapToProductDto(product));
     }
 
