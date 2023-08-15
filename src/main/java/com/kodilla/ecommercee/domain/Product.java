@@ -6,7 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -28,9 +29,24 @@ public class Product {
     @Column(name = "description")
     private String description;
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "CART_ITEMS",
+            joinColumns = {@JoinColumn(name = "product_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "carts_id", referencedColumnName = "id")}
+    )
+    private List<Cart> carts = new ArrayList<>();
+
     public Product(String name, String description) {
         this.name = name;
         this.description = description;
 
+    }
+
+    public Product(Group group, List<Cart> carts, String name, String description) {
+        this.group = group;
+        this.name = name;
+        this.description = description;
+        this.carts = carts;
     }
 }

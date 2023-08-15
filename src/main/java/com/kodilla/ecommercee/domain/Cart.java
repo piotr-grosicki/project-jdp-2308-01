@@ -21,12 +21,15 @@ public class Cart {
     @GeneratedValue
     private Long id;
 
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "customer_id")
     public Customer customer;
 
     @OneToOne(mappedBy = "cart")
     private Order order;
+
+
 
     @OneToMany
     @JoinColumn(name = "carts_id")
@@ -36,5 +39,6 @@ public class Cart {
         this.id = id;
         this.customer = customer;
     }
+
 
 }
