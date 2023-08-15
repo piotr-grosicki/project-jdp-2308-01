@@ -28,4 +28,9 @@ public class Order {
     private Customer customer;
 
 //    private List<Product> items;
+
+    public Order(Cart cart, Customer customer) {
+        this.cart = cart;
+        this.customer = customer;
+    }
 }

@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,26 +21,20 @@ public class Cart {
     @GeneratedValue
     private Long id;
 
-    /*
-    @Column(name = "customer_id")
-    private Long customerId;
-*/
-
-
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "customer_id")
     public Customer customer;
 
+    @OneToOne(mappedBy = "cart")
+    private Order order;
 
-
-
-/*
     @OneToMany
     @JoinColumn(name = "carts_id")
-    public List<Product> getProducts() {
-        List<Product> items = new ArrayList<>();
-        return items;
+    public List<Product> items = new ArrayList<>();
+
+    public Cart(Long id, Customer customer) {
+        this.id = id;
+        this.customer = customer;
     }
-  */
 
 }
